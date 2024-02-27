@@ -65,6 +65,10 @@ class Provider
 
     public function getAccessToken(): string
     {
+        if (Config::hasCache() && Config::cache()->has("snap.{$this->name}.token")) {
+            return Config::cache()->get("snap.{$this->name}.token");
+        }
+
         if (! Config::hasClient()) {
             $response = (new GetAccessToken($this, Config::instance()))->send();
 
@@ -72,10 +76,26 @@ class Provider
 
             $response->getBody()->rewind();
 
+            if (Config::hasCache()) {
+                Config::cache()->put(
+                    "snap.{$this->name}.token",
+                    $body->accessToken,
+                    $body->expiresIn
+                );
+            }
+
             return $body->accessToken;
         }
 
         $response = (new GetAccessToken($this, Config::instance()))->send();
+
+        if (Config::hasCache()) {
+            Config::cache()->put(
+                "snap.{$this->name}.token",
+                $response->json('accessToken'),
+                $response->json('expiresIn')
+            );
+        }
 
         return $response->json('accessToken');
     }

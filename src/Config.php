@@ -16,6 +16,8 @@ class Config
 
     protected static $client = null;
 
+    protected static $cache = null;
+
     public function __construct(protected string $origin, protected ?PrivateKey $privateKey = null)
     {
         //
@@ -79,5 +81,20 @@ class Config
     public static function client()
     {
         return clone static::$client;
+    }
+
+    public static function useCache($cache): void
+    {
+        static::$cache = $cache;
+    }
+
+    public static function hasCache(): bool
+    {
+        return ! is_null(static::$cache);
+    }
+
+    public static function cache()
+    {
+        return static::$cache;
     }
 }
