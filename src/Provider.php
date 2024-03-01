@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace QuetzalStudio\PhpSnapBi;
 
+use GuzzleHttp\Client;
 use QuetzalStudio\PhpSnapBi\Services\Auth\B2BAccessToken\GetAccessToken;
 
 class Provider
@@ -69,7 +70,7 @@ class Provider
             return Config::cache()->get("snap.{$this->name}.token");
         }
 
-        if (! Config::hasClient()) {
+        if (! Config::hasClient() || Config::client() instanceof Client) {
             $response = (new GetAccessToken($this, Config::instance()))->send();
 
             $body = json_decode((string) $response->getBody());

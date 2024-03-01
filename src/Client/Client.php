@@ -26,7 +26,7 @@ class Client
 
     public function __call($method, $arguments)
     {
-        if (Config::hasClient()) {
+        if (Config::hasClient() && ! Config::client() instanceof GuzzleClient) {
             if (in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
                 return Config::client()
                     ->withHeaders($this->headers)
@@ -40,6 +40,8 @@ class Client
         if (in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
             $arguments[1] = array_merge($arguments[1] ?? [], ['headers' => $this->headers]);
         }
+
+        $this->client = Config::client() ?? $this->client;
 
         return $this->client->{$method}(...$arguments);
     }

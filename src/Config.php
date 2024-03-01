@@ -80,6 +80,10 @@ class Config
 
     public static function client()
     {
+        if (! static::$client) {
+            return null;
+        }
+
         return clone static::$client;
     }
 

@@ -2,6 +2,7 @@
 
 namespace QuetzalStudio\PhpSnapBi\Concerns;
 
+use GuzzleHttp\Client;
 use QuetzalStudio\PhpSnapBi\Client\HeaderFactory;
 use QuetzalStudio\PhpSnapBi\Config;
 use QuetzalStudio\PhpSnapBi\Contracts\ServicePayload;
@@ -75,7 +76,7 @@ trait HasService
 
     public function payload(): array
     {
-        if (Config::hasClient()) {
+        if (Config::hasClient() && ! Config::client() instanceof Client) {
             return $this->payload->toArray();
         }
 
