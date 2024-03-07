@@ -13,6 +13,7 @@ use QuetzalStudio\PhpSnapBi\Contracts\ServicePayload;
 use QuetzalStudio\PhpSnapBi\Provider;
 use QuetzalStudio\PhpSnapBi\Signature\AccessTokenSignature;
 use QuetzalStudio\PhpSnapBi\Signature\AccessTokenSignaturePayload;
+use QuetzalStudio\PhpSnapBi\Timestamp;
 
 class GetAccessToken implements Service
 {
@@ -58,7 +59,7 @@ class GetAccessToken implements Service
     {
         return HeaderFactory::make([
             'client_key' => $this->provider->clientId(),
-            'timestamp' => $this->timestamp,
+            'timestamp' => (string) new Timestamp($this->timestamp),
             'signature' => $this->signature(),
         ])->forGetAccessToken();
     }
