@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace QuetzalStudio\PhpSnapBi\Services\Nicepay\DirectDebitPayment;
 
 class CartItem
@@ -18,7 +20,7 @@ class CartItem
             'goods_name' => $this->name,
             'goods_detail' => $this->description,
             'img_url' => $this->image,
-            'goods_amt' => (string) $this->amount,
+            'goods_amt' => number_format($this->amount, 2, '.', ''),
             'goods_quantity' => (string) $this->quantity,
         ];
     }
