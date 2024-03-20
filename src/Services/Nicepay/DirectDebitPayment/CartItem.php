@@ -20,7 +20,7 @@ class CartItem
             'goods_name' => $this->name,
             'goods_detail' => $this->description,
             'img_url' => $this->image,
-            'goods_amt' => number_format($this->amount, 2, '.', ''),
+            'goods_amt' => number_format((float) $this->amount, 2, '.', ''),
             'goods_quantity' => (string) $this->quantity,
         ];
     }
