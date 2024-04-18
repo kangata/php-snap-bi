@@ -28,13 +28,18 @@ class Payload implements ServicePayload
             'serviceCode' => $this->serviceCode,
             'amount' => $this->amount->toArray(),
             'subMerchantId' => $this->subMerchantId,
+            'externalStoreId' => $this->externalStoreId,
             'transactionDate' => $this->transactionDate,
         ];
 
-        if ($this->additionalInfo) {
+        if (! is_null($this->additionalInfo)) {
             $data['additionalInfo'] = $this->additionalInfo instanceof AdditionalInfo
                 ? $this->additionalInfo->toArray()
                 : $this->additionalInfo;
+
+            if (empty($data['additionalInfo'])) {
+                $data['additionalInfo'] = (object) [];
+            }
         }
 
         foreach ($data as $key => $val) {
