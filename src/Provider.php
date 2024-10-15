@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace QuetzalStudio\PhpSnapBi;
 
+use Exception;
 use GuzzleHttp\Client;
 use QuetzalStudio\PhpSnapBi\Services\Auth\B2BAccessToken\GetAccessToken;
 
@@ -104,5 +105,35 @@ class Provider
     private function cacheKey(): string
     {
         return "snap.{$this->name}.{$this->clientId()}.token";
+    }
+
+    public static function init(string $name, array $options = []): Provider
+    {
+        if (! function_exists('config')) {
+            throw new Exception('`config` function not exists');
+        }
+
+        $config = config("snap.{$name}");
+
+        Config::load($options['origin'] ?? '');
+
+        if (isset($options['client'])) {
+            Config::useClient($options['client']);
+        }
+
+        return new Provider($name, new ProviderConfig(
+            partnerId: $config['partner_id'],
+            clientId: $config['client_id'],
+            clientSecret: $config['client_secret'],
+            privateKey: $config['private_key'] ? storage_path($config['private_key']) : null,
+            publicKey: $config['public_key'] ?? null,
+            baseUrl: $config['host'],
+            apiPrefix: $config['api_prefix'],
+        ));
+    }
+
+    public static function load(string $name, array $options): Provider
+    {
+        return static::init($name, $options);
     }
 }
