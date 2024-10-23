@@ -113,7 +113,7 @@ class Provider
             throw new Exception('`config` function not exists');
         }
 
-        $config = config("snap.{$name}");
+        $config = config("snap.providers.{$name}");
 
         Config::load($options['origin'] ?? '');
 

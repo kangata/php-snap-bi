@@ -83,7 +83,8 @@ SNAP_BCA_API_PREFIX=/openapi
 <?php
 
 return [
-    'bca' => [
+    'providers' => [
+        'bca' => [
             'host' => env('SNAP_BCA_HOST'),
             'client_id' => env('SNAP_BCA_CLIENT_ID'),
             'client_secret' => env('SNAP_BCA_CLIENT_SECRET'),
@@ -93,6 +94,7 @@ return [
             'channel_id' => '',
             'api_prefix' => env('SNAP_BCA_API_PREFIX'),
         ],
+    ],
 ];
 ```
 
