@@ -62,7 +62,7 @@ try {
 ```
 
 
-#### Auth Config
+#### Auto Config
 ##### Requirement
 - .env
 - config/snap.php
