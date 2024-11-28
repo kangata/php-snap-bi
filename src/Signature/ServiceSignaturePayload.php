@@ -35,6 +35,10 @@ class ServiceSignaturePayload
             (string) new Timestamp($this->timestamp),
         ];
 
+        if (Config::serviceSignatureIsAsymmetric()) {
+            unset($values[2]);
+        }
+
         $stringToSign = implode(':', $values);
 
         if (Config::isDebug() && Config::hasLogger()) {

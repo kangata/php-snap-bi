@@ -9,8 +9,8 @@ use QuetzalStudio\PhpSnapBi\Enums\TransferType;
 class AdditionalInfo implements WithAdditionalInfo
 {
     public function __construct(
-        protected TransferType $transferType,
-        protected BIFastPurposeCode $purposeCode,
+        protected TransferType|string $transferType,
+        protected BIFastPurposeCode|string $purposeCode,
     ) {
         //
     }
@@ -18,8 +18,12 @@ class AdditionalInfo implements WithAdditionalInfo
     public function toArray(): array
     {
         return [
-            'transferType' => $this->transferType->value,
-            'purposeCode' => $this->purposeCode->value,
+            'transferType' => is_string($this->transferType)
+                ? $this->transferType
+                : $this->transferType->value,
+            'purposeCode' => is_string($this->purposeCode)
+                ? $this->purposeCode
+                : $this->purposeCode->value,
         ];
     }
 }

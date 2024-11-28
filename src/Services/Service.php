@@ -1,22 +1,15 @@
 <?php
 
-namespace QuetzalStudio\PhpSnapBi\Services\Nicepay\DirectDebitStatus;
+namespace QuetzalStudio\PhpSnapBi\Services;
 
 use QuetzalStudio\PhpSnapBi\Client\Client;
-use QuetzalStudio\PhpSnapBi\Concerns\HasService;
-use QuetzalStudio\PhpSnapBi\Contracts\Service;
+use QuetzalStudio\PhpSnapBi\Config;
 use QuetzalStudio\PhpSnapBi\Contracts\ServicePayload;
 use QuetzalStudio\PhpSnapBi\Provider;
 
-class DirectDebitStatus implements Service
+class Service
 {
-    use HasService;
-
     protected Client $client;
-
-    protected string $version = 'v1.0';
-
-    protected string $endpoint = '/api/:version/debit/status';
 
     protected ?string $accessToken = null;
 
@@ -28,7 +21,11 @@ class DirectDebitStatus implements Service
         protected string|int|null $timestamp = null,
     ) {
         $this->client = new Client($provider);
-        $this->accessToken = $provider->getAccessToken();
+
+        $this->accessToken = Config::serviceSignatureIsSymmetric()
+            ? $provider->getAccessToken()
+            : null;
+
         $this->timestamp = $timestamp ?? time();
     }
 }

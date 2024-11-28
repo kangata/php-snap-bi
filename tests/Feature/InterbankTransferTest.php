@@ -43,8 +43,8 @@ test('bca intrabank transfer', function () {
         sourceAccountNo: '123123123',
         transactionDate: date(DATE_ATOM),
         additionalInfo: new AdditionalInfo(
-            transferType: TransferType::BI_FAST,
-            purposeCode: BIFastPurposeCode::PURCHASE,
+            transferType: PHP_VERSION >= '8.1' ? TransferType::BI_FAST : '2',
+            purposeCode: PHP_VERSION >= '8.1' ? BIFastPurposeCode::PURCHASE : '03',
         )
     ));
 

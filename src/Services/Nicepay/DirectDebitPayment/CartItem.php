@@ -12,7 +12,8 @@ class CartItem
         protected string $image,
         protected string|int $amount,
         protected string|int $quantity,
-    ) {}
+    ) {
+    }
 
     public function toArray()
     {

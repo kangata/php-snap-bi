@@ -34,4 +34,9 @@ class PublicKey
     {
         return openssl_get_publickey($this->getContent());
     }
+
+    public function __toString()
+    {
+        return $this->getContent();
+    }
 }

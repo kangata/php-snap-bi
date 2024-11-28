@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QuetzalStudio\PhpSnapBi\Client;
 
+use QuetzalStudio\PhpSnapBi\Config;
+
 class Header
 {
     public function __construct(
@@ -48,6 +50,10 @@ class Header
             if (is_null($val)) {
                 unset($data[$key]);
             }
+        }
+
+        if (Config::serviceSignatureIsAsymmetric()) {
+            unset($data['Authorization']);
         }
 
         return $data;

@@ -12,7 +12,8 @@ class Url
         protected string $url,
         protected string|UrlType $type,
         protected bool $isDeepLink = false,
-    ) {}
+    ) {
+    }
 
     public function toArray()
     {

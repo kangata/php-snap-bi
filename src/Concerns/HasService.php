@@ -49,16 +49,22 @@ trait HasService
 
     public function signature(): string
     {
-        return ServiceSignature::symmetric(
-            $this->provider->clientSecret(),
-            new ServiceSignaturePayload(
-                strtoupper($this->httpMethod()),
-                $this->provider->relativePath($this->endpoint()),
-                (string) $this->accessToken,
-                $this->timestamp,
-                $this->payload->toArray(),
-            ),
+        $payload = new ServiceSignaturePayload(
+            strtoupper($this->httpMethod()),
+            $this->provider->relativePath($this->endpoint()),
+            (string) $this->accessToken,
+            $this->timestamp,
+            $this->payload->toArray(),
         );
+
+        if (Config::serviceSignatureIsAsymmetric()) {
+            return ServiceSignature::asymmetric(
+                $this->provider->privateKey() ?? Config::instance()->privateKey(),
+                $payload
+            );
+        }
+
+        return ServiceSignature::symmetric($this->provider->clientSecret(), $payload);
     }
 
     public function headers(): array

@@ -18,6 +18,8 @@ class Config
 
     protected static $cache = null;
 
+    protected static $serviceSignatureMode = 'symmetric';
+
     public function __construct(protected string $origin, protected ?PrivateKey $privateKey = null)
     {
         //
@@ -100,5 +102,25 @@ class Config
     public static function cache()
     {
         return static::$cache;
+    }
+
+    public static function serviceSignatureUseAsymmetric(): void
+    {
+        static::$serviceSignatureMode = 'asymmetric';
+    }
+
+    public static function serviceSignatureUseSymmetric(): void
+    {
+        static::$serviceSignatureMode = 'symmetric';
+    }
+
+    public static function serviceSignatureIsAsymmetric(): bool
+    {
+        return static::$serviceSignatureMode == 'asymmetric';
+    }
+
+    public static function serviceSignatureIsSymmetric(): bool
+    {
+        return static::$serviceSignatureMode == 'symmetric';
     }
 }

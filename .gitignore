@@ -1,4 +1,3 @@
 .phpunit.result.cache
 composer.lock
-/examples
 /vendor

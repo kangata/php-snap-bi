@@ -17,7 +17,8 @@ class Payload implements ServicePayload
         public ?string $externalStoreId = null,
         public ?string $transactionDate = null,
         public AdditionalInfo|array|null $additionalInfo = null,
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {
