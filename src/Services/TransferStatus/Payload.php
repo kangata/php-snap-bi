@@ -28,7 +28,7 @@ class Payload implements ServicePayload
             'originalExternalId' => $this->originalExternalId,
             'serviceCode' => $this->serviceCode,
             'transactionDate' => $this->transactionDate,
-            'amount' => $this->amount->toArray(),
+            'amount' => $this->amount?->toArray() ?? null,
         ];
 
         if ($this->additionalInfo) {
