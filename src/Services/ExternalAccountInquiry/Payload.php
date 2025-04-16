@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace QuetzalStudio\PhpSnapBi\Services\ExternalAccountInquiry;
 
 use QuetzalStudio\PhpSnapBi\Contracts\AdditionalInfo;
@@ -8,9 +10,9 @@ use QuetzalStudio\PhpSnapBi\Contracts\ServicePayload;
 class Payload implements ServicePayload
 {
     public function __construct(
-        public string $partnerReferenceNo,
         public string $beneficiaryBankCode,
         public string $beneficiaryAccountNo,
+        public ?string $partnerReferenceNo = null,
         public AdditionalInfo|array|null $additionalInfo = null,
     ) {
         //
