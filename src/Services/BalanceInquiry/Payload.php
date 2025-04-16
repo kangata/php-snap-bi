@@ -1,6 +1,6 @@
 <?php
 
-namespace QuetzalStudio\PhpSnapBi\Services\InternalAccountInquiry;
+namespace QuetzalStudio\PhpSnapBi\Services\BalanceInquiry;
 
 use QuetzalStudio\PhpSnapBi\Contracts\AdditionalInfo;
 use QuetzalStudio\PhpSnapBi\Contracts\ServicePayload;
