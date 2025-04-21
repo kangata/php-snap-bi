@@ -57,7 +57,13 @@ class Provider
 
     public function relativePath(string $endpoint): string
     {
-        return $this->config->apiPrefix().$endpoint;
+        if (preg_match('/access-token/', $endpoint)) {
+            return $this->config->apiPrefix().$endpoint;
+        }
+
+        return $this->config->serviceApiPrefix()
+            ? $this->config->serviceApiPrefix().$endpoint
+            : $this->config->apiPrefix().$endpoint;
     }
 
     public function serviceUrl(string $endpoint): string
@@ -130,6 +136,7 @@ class Provider
             channelId: $config['channel_id'],
             baseUrl: $config['host'],
             apiPrefix: $config['api_prefix'],
+            serviceApiPrefix: $config['service_api_prefix'] ?? null,
             logChannel: $config['log_channel'] ?? null,
         ));
     }
