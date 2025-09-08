@@ -42,12 +42,17 @@ class Provider
 
     public function privateKey(): ?PrivateKey
     {
-        return $this->config->privateKey() ?? null;
+        return $this->config->privateKey();
     }
 
     public function publicKey(): ?PublicKey
     {
-        return $this->config->publicKey() ?? null;
+        return $this->config->publicKey();
+    }
+
+    public function channelId(): ?string
+    {
+        return $this->config()->channelId();
     }
 
     public function baseUrl(): ?string
@@ -137,6 +142,7 @@ class Provider
             baseUrl: $config['host'],
             apiPrefix: $config['api_prefix'],
             serviceApiPrefix: $config['service_api_prefix'] ?? null,
+            authUrl: $config['auth_url'] ?? null,
             logChannel: $config['log_channel'] ?? null,
         ));
     }

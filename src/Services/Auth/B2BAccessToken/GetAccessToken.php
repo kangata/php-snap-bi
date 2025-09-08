@@ -37,11 +37,13 @@ class GetAccessToken implements Service
 
     public function send(?ServicePayload $payload = null)
     {
+        $url = $this->provider->config()->authUrl() ?? $this->provider->serviceUrl($this->endpoint());
+
         $this->payload = $payload ?? new Payload;
 
         return $this->client
             ->withHeaders($this->headers())
-            ->post($this->provider->serviceUrl($this->endpoint()), $this->payload());
+            ->post($url, $this->payload());
     }
 
     public function signature(): string

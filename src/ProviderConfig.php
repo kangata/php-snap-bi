@@ -16,6 +16,7 @@ class ProviderConfig
         protected ?string $baseUrl = null,
         protected ?string $apiPrefix = null,
         protected ?string $serviceApiPrefix = null,
+        protected ?string $authUrl = null,
         protected ?string $logChannel = null,
     ) {
         //
@@ -32,6 +33,7 @@ class ProviderConfig
         $this->baseUrl = $options['base_url'] ?? null;
         $this->apiPrefix = $options['api_prefix'] ?? null;
         $this->serviceApiPrefix = $options['service_api_prefix'] ?? null;
+        $this->authUrl = $options['auth_url'] ?? null;
         $this->logChannel = $options['log_channel'] ?? null;
     }
 
@@ -78,6 +80,11 @@ class ProviderConfig
     public function serviceApiPrefix(): ?string
     {
         return $this->serviceApiPrefix;
+    }
+
+    public function authUrl(): ?string
+    {
+        return $this->authUrl;
     }
 
     public function logChannel(): ?string
