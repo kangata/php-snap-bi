@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace QuetzalStudio\PhpSnapBi;
 
+use QuetzalStudio\PhpSnapBi\Contracts\ServicePayload;
+
 class ProviderConfig
 {
     public function __construct(
@@ -17,6 +19,7 @@ class ProviderConfig
         protected ?string $apiPrefix = null,
         protected ?string $serviceApiPrefix = null,
         protected ?string $authUrl = null,
+        protected ?ServicePayload $authPayload = null,
         protected ?string $logChannel = null,
     ) {
         //
@@ -34,6 +37,7 @@ class ProviderConfig
         $this->apiPrefix = $options['api_prefix'] ?? null;
         $this->serviceApiPrefix = $options['service_api_prefix'] ?? null;
         $this->authUrl = $options['auth_url'] ?? null;
+        $this->authPayload = $options['auth_payload'] ?? null;
         $this->logChannel = $options['log_channel'] ?? null;
     }
 
@@ -85,6 +89,11 @@ class ProviderConfig
     public function authUrl(): ?string
     {
         return $this->authUrl;
+    }
+
+    public function authPayload(): ?ServicePayload
+    {
+        return $this->authPayload;
     }
 
     public function logChannel(): ?string

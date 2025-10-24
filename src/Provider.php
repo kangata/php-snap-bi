@@ -52,7 +52,7 @@ class Provider
 
     public function channelId(): ?string
     {
-        return $this->config()->channelId();
+        return $this->config->channelId();
     }
 
     public function baseUrl(): ?string
@@ -83,7 +83,7 @@ class Provider
         }
 
         if (! Config::hasClient() || Config::client() instanceof Client) {
-            $response = (new GetAccessToken($this, Config::instance()))->send();
+            $response = (new GetAccessToken($this, Config::instance()))->send($this->config->authPayload());
 
             $body = json_decode((string) $response->getBody());
 
@@ -100,7 +100,7 @@ class Provider
             return $body->accessToken;
         }
 
-        $response = (new GetAccessToken($this, Config::instance()))->send();
+        $response = (new GetAccessToken($this, Config::instance()))->send($this->config->authPayload());
 
         if (Config::hasCache()) {
             Config::cache()->put(
@@ -143,6 +143,7 @@ class Provider
             apiPrefix: $config['api_prefix'],
             serviceApiPrefix: $config['service_api_prefix'] ?? null,
             authUrl: $config['auth_url'] ?? null,
+            authPayload: $config['auth_payload'] ?? null,
             logChannel: $config['log_channel'] ?? null,
         ));
     }
