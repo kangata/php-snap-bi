@@ -57,6 +57,17 @@ trait HasService
             $this->payload->toArray(),
         );
 
+        if ($this->provider->config()->hasServiceSignatureHandler()) {
+
+            $handler = $this->provider->config()->serviceSignatureHandler();
+
+            return (string) new $handler(
+                $this->provider->privateKey() ?? Config::instance()->privateKey(),
+                $this->provider->clientSecret(),
+                $payload
+            );
+        }
+
         if (Config::serviceSignatureIsAsymmetric()) {
             return ServiceSignature::asymmetric(
                 $this->provider->privateKey() ?? Config::instance()->privateKey(),

@@ -144,6 +144,7 @@ class Provider
             serviceApiPrefix: $config['service_api_prefix'] ?? null,
             authUrl: $config['auth_url'] ?? null,
             authPayload: $config['auth_payload'] ?? null,
+            serviceSignatureHandler: $config['service_signature_handler'] ?? null,
             logChannel: $config['log_channel'] ?? null,
         ));
     }

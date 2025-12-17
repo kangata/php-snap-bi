@@ -20,6 +20,7 @@ class ProviderConfig
         protected ?string $serviceApiPrefix = null,
         protected ?string $authUrl = null,
         protected ?ServicePayload $authPayload = null,
+        protected ?string $serviceSignatureHandler = null,
         protected ?string $logChannel = null,
     ) {
         //
@@ -38,6 +39,7 @@ class ProviderConfig
         $this->serviceApiPrefix = $options['service_api_prefix'] ?? null;
         $this->authUrl = $options['auth_url'] ?? null;
         $this->authPayload = $options['auth_payload'] ?? null;
+        $this->serviceSignatureHandler = $options['service_signature_handler'] ?? null;
         $this->logChannel = $options['log_channel'] ?? null;
     }
 
@@ -94,6 +96,16 @@ class ProviderConfig
     public function authPayload(): ?ServicePayload
     {
         return $this->authPayload;
+    }
+
+    public function serviceSignatureHandler(): ?string
+    {
+        return $this->serviceSignatureHandler;
+    }
+
+    public function hasServiceSignatureHandler(): bool
+    {
+        return $this->serviceSignatureHandler != null;
     }
 
     public function logChannel(): ?string
