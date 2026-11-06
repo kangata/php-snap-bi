@@ -27,7 +27,7 @@ class Payload implements ServicePayload
             'partnerReferenceNo' => $this->partnerReferenceNumber,
             'merchantId' => $this->merchantId,
             'amount' => $this->amount->toArray(),
-            'urlParam' => $this->urls,
+            'urlParams' => $this->urls,
             'subMerchantId' => $this->subMerchantId,
             'externalStoreId' => $this->externalStoreId,
             'pointOfInitiation' => $this->pointOfInitiation,
